@@ -18,7 +18,7 @@ const Osa = (props) => (
 )
 
 const Yhteensa = (props) => (
-    <p>yhteensä {props.yhteensa} tehtävää</p>
+    <p>Yhteensä {props.yhteensa} tehtävää</p>
 )
 
 
