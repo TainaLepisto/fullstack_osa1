@@ -1,55 +1,64 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Otsikko = (props) => (
-    <h1>{props.kurssi}</h1>
-)
-
-const Sisalto = (props) => (
-    <div>
-        <Osa osa={props.osat[0]} />
-        <Osa osa={props.osat[1]} />
-        <Osa osa={props.osat[2]} />
-    </div>
-)
-
-const Osa = (props) => (
-    <p>{props.osa.nimi} {props.osa.tehtavia}</p>
-)
-
-const Yhteensa = (props) => (
-    <p>Yhteensä {props.osat[0].tehtavia+props.osat[1].tehtavia+props.osat[2].tehtavia} tehtävää</p>
-)
-
-
-
-const App = () => {
-    const kurssi = {
-        nimi: 'Half Stack -sovelluskehitys',
-        osat: [
-          {
-            nimi: 'Reactin perusteet',
-            tehtavia: 10
-          },
-          {
-            nimi: 'Tiedonvälitys propseilla',
-            tehtavia: 7
-          },
-          {
-            nimi: 'Komponenttien tila',
-            tehtavia: 14
-          }
-        ]
+class App extends React.Component {
+    constructor() {
+      super()
+      this.state = {
+        hyva: 0,
+        neutraali: 0 ,
+        huono: 0 
       }
-    
+    }
 
-  return (
-    <div>
-      <Otsikko kurssi={kurssi.nimi} />
-      <Sisalto osat={kurssi.osat} />
-      <Yhteensa osat={kurssi.osat} />
-    </div>
-  )
+    handler = (palaute) => {
+        console.log('nappia painettu ', palaute)
+
+        return () => {
+            if(palaute==='hyva'){
+                this.setState({ hyva: this.state.hyva +1 })
+            }
+            if(palaute==='neutraali'){
+                this.setState({ neutraali: this.state.neutraali +1 })
+            }
+            if(palaute==='huono'){
+                this.setState({ huono: this.state.huono +1 })
+            }
+        }
+    }
+    
+    historia = () => {
+        if (this.state.hyva === 0 && this.state.neutraali === 0 && this.state.huono === 0) {
+          return (
+            <div>
+              <em>Anna palautetta nappeja painelemalla</em>
+            </div>
+          )
+        }
+        return (
+          <div>
+            Hyvä: {this.state.hyva} <br/>
+            Neutraali: {this.state.neutraali} <br/>
+            Huono: {this.state.huono} <br/>
+          </div>
+        )
+      }
+
+    render() {
+        return (
+            <div>
+            
+            <h1>Anna palautetta</h1>
+            <button onClick={this.handler('hyva')}>Hyvä</button>
+            <button onClick={this.handler('neutraali')}>Neutraali</button>
+            <button onClick={this.handler('huono')}>Huono</button>
+
+            <h2>Statistiikka</h2>
+            <div>{this.historia()}</div>
+
+            </div>
+        )
+    }
 }
 
 ReactDOM.render(
