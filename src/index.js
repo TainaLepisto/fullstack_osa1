@@ -15,7 +15,8 @@ const Statistics = ({hyva, neutraali, huono, yhteensa}) => {
     if (yhteensa === 0) {
         return (
           <div>
-            <em>Anna palautetta nappeja painelemalla</em>
+            <em>Anna palautetta nappeja painelemalla</em><br/>
+            <em>Ei vielä annettuja palautteita</em>
           </div>
         )
       }
