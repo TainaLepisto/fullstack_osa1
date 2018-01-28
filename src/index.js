@@ -7,7 +7,8 @@ class App extends React.Component {
       this.state = {
         hyva: 0,
         neutraali: 0 ,
-        huono: 0 
+        huono: 0,
+        yhteensa: 0
       }
     }
 
@@ -16,19 +17,19 @@ class App extends React.Component {
 
         return () => {
             if(palaute==='hyva'){
-                this.setState({ hyva: this.state.hyva +1 })
+                this.setState({ hyva: this.state.hyva +1, yhteensa: this.state.yhteensa +1 })
             }
             if(palaute==='neutraali'){
-                this.setState({ neutraali: this.state.neutraali +1 })
+                this.setState({ neutraali: this.state.neutraali +1, yhteensa: this.state.yhteensa +1 })
             }
             if(palaute==='huono'){
-                this.setState({ huono: this.state.huono +1 })
+                this.setState({ huono: this.state.huono +1, yhteensa: this.state.yhteensa +1 })
             }
         }
     }
     
     historia = () => {
-        if (this.state.hyva === 0 && this.state.neutraali === 0 && this.state.huono === 0) {
+        if (this.state.yhteensa === 0) {
           return (
             <div>
               <em>Anna palautetta nappeja painelemalla</em>
@@ -40,6 +41,9 @@ class App extends React.Component {
             Hyvä: {this.state.hyva} <br/>
             Neutraali: {this.state.neutraali} <br/>
             Huono: {this.state.huono} <br/>
+            <br/>
+            Keskiarvo: { Math.round((this.state.hyva + -1*this.state.huono ) / this.state.yhteensa *10) / 10} <br/>
+            Positiivisia: { Math.round(this.state.hyva  / this.state.yhteensa * 100 *10) / 10} %
           </div>
         )
       }
