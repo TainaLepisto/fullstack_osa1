@@ -24,23 +24,24 @@ const Statistics = ({hyva, neutraali, huono, yhteensa}) => {
         <div>
             <table>  
             <tbody>
-                <tr><td>Hyvä</td><td>{hyva}</td></tr>
-                <tr><td>Neutraali</td><td>{neutraali}</td></tr>
-                <tr><td>Huono</td><td>{huono}</td></tr>
+                <Statistic otsikko={'Hyva'} kaava={hyva} />
+                <Statistic otsikko={'Neutraali'} kaava={neutraali} />
+                <Statistic otsikko={'Huono'} kaava={huono} />
+                <Statistic otsikko={'Keskiarvo'} kaava={ Math.round((hyva + -1*huono ) / yhteensa *10) / 10} />
+                <Statistic otsikko={'Positiivisia'} kaava={Math.round(hyva  / yhteensa * 100 *10) / 10} />
             </tbody>
             </table>
             <br/>
-            <Statistic hyva={hyva} huono={huono} yhteensa={yhteensa} />
         </div>
       )
 }
 
 // Statistic huolehtii yksittäisen tilastorivin, esim. keskiarvon näyttämisestä
-const Statistic = ({hyva, huono, yhteensa}) => (
-    <table><tbody>
-        <tr><td>Keskiarvo</td><td>{ Math.round((hyva + -1*huono ) / yhteensa *10) / 10} </td></tr>
-        <tr><td>Positiivisia</td><td>{ Math.round(hyva  / yhteensa * 100 *10) / 10} % </td></tr>
-    </tbody></table>
+const Statistic = ({otsikko, kaava}) => (
+        <tr>
+            <td>{otsikko}</td>
+            <td>{kaava}</td>
+        </tr>
 )
 
 
