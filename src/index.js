@@ -138,15 +138,7 @@ class App extends React.Component {
         console.log('nappia painettu ', palaute)
     
         return () => {
-            if(palaute==='hyva'){
-                this.setState({ hyva: this.state.hyva +1, yhteensa: this.state.yhteensa +1 })
-            }
-            if(palaute==='neutraali'){
-                this.setState({ neutraali: this.state.neutraali +1, yhteensa: this.state.yhteensa +1 })
-            }
-            if(palaute==='huono'){
-                this.setState({ huono: this.state.huono +1, yhteensa: this.state.yhteensa +1 })
-            }
+            this.setState({ [palaute]: this.state[palaute] +1, yhteensa: this.state.yhteensa +1 })
         }
     }
 
