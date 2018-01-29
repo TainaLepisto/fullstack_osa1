@@ -6,22 +6,65 @@ class Anekdote extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        selected: 0
+        selected: 0,
+        pisteet: [0,0,0,0,0,0]
       }
     }
 
-    handler = () => {    
+    handlerNext = () => {    
         return () => {
+            console.log(this.state.selected)
+            console.log(this.state.pisteet)
+
             this.setState({ selected: Math.floor(Math.random() * this.props.anecdotes.length)})
         }
+    }
+
+    handlerVote = () => {    
+        return () => {
+            console.log(this.state.selected)
+            console.log(this.state.pisteet)
+            const kopio = this.state.pisteet.slice()
+            kopio[this.state.selected] += 1   
+            console.log(kopio)
+            this.setState({pisteet: kopio})
+        }
+    }
+
+    enitenAania = () => {
+        let enitenAania = 0
+        
+        for (let i=1; i<this.state.pisteet.length; i++) {
+            if(this.state.pisteet[enitenAania] < this.state.pisteet[i]){
+                enitenAania = i 
+            }
+        }
+        console.log("laskettiin eniten ääniä", enitenAania)
+
+        return (
+            <p>
+            {this.props.anecdotes[enitenAania]}
+            <br/>
+            Ääniä: {this.state.pisteet[enitenAania]}
+            </p>
+        )
     }
   
     render() {
       return (
         <div>
             {this.props.anecdotes[this.state.selected]}
+            <p>
+                Ääniä: {this.state.pisteet[this.state.selected]}
+            </p>
             <br/>
-            <Button handleClick={this.handler()} text="Seuraava satunnainen ohjelmistotuotantoon liittyvän anekdootti" />
+            <Button handleClick={this.handlerVote()} text="Äänestä tätä" />
+            <Button handleClick={this.handlerNext()} text="Seuraava satunnainen ohjelmistotuotantoon liittyvän anekdootti" />
+        
+            <h2>Eniten ääniä saanut anekdootti</h2>
+            {this.enitenAania()}
+            
+
         </div>
       )
     }
